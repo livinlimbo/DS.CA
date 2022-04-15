@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_package = "package3";
+option java_multiple_files = true;
+option java_outer_classname = "outerClass3";
+
+
+service Vaccination{
+
+	rpc vaccination_history(userId) returns (hadVaccination);
+	rpc see_available_dates(request) returns (availableDate);
+}
+
+message userId{
+	int32 id = 1;
+}
+
+message hadVaccination{
+	bool vaccination = 1;
+}
+
+message request{
+
+}
+
+message availableDate{
+	string available = 1;
+}
