@@ -11,8 +11,15 @@ public class VaccinationServer {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		Server server = ServerBuilder.forPort(50053).addService(new service3()).build();
+		int port = 50053;
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		simpleJMDNS.SimpleServiceRegistration ssr = new simpleJMDNS.SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
+		
+		Server server = ServerBuilder.forPort(port).addService(new service3()).build();
 		server.start();
+		System.out.println("\nServer V1.3 Started");
 		server.awaitTermination();
 	}
 	

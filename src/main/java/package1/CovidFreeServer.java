@@ -11,8 +11,15 @@ public class CovidFreeServer {
 	
 	public static void main(String args []) throws IOException, InterruptedException {
 		
-		Server server = ServerBuilder.forPort(50051).addService(new service1()).build();
+		int port = 50051;
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		simpleJMDNS.SimpleServiceRegistration ssr = new simpleJMDNS.SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
+		
+		Server server = ServerBuilder.forPort(port).addService(new service1()).build();
 		server.start();
+		System.out.println("\nServer V1.1 Started");
 		server.awaitTermination();
 	}
 	

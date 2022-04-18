@@ -10,8 +10,16 @@ import package2.Risk_FreeGrpc.Risk_FreeImplBase;
 public class RiskFreeServer {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		Server server = ServerBuilder.forPort(50052).addService(new service2()).build();
+		
+		int port = 50052;
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		simpleJMDNS.SimpleServiceRegistration ssr = new simpleJMDNS.SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
+		
+		Server server = ServerBuilder.forPort(port).addService(new service2()).build();
 		server.start();
+		System.out.println("\nServer V1.2 Started");
 		server.awaitTermination();
 	}
 	

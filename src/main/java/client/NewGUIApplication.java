@@ -3,6 +3,7 @@ package client;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.jmdns.ServiceInfo;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -154,15 +155,26 @@ public class NewGUIApplication {
 			//implement action performed method
 			//This will happen when the button is clicked
 			public void actionPerformed(ActionEvent e) {
+				
+				ServiceInfo serviceInfo;
+				String service_type = "_grpc._tcp.local.";
+				//Now retrieve the service info - all we are supplying is the service type
+				serviceInfo = simpleJMDNS.SimpleServiceDiscovery.run(service_type);
+				//Use the serviceInfo to retrieve the port
+				//int port = serviceInfo.getPort();
+				String host = "localhost";
+				int port = 50051;
+				
 
 				ManagedChannel channel = ManagedChannelBuilder
-						.forAddress("localhost", 50051)
+						.forAddress(host, port)
 						.usePlaintext()
 						.build();
+				
 				CFblockingStub = CovidFreeGrpc.newBlockingStub(channel);
 				
 				int index = comboOperation1.getSelectedIndex();
-				System.out.print(index);
+				//System.out.print(index);
 				if(index==0) {
 					
 				//Do some logic with our index or send it over
@@ -174,7 +186,7 @@ public class NewGUIApplication {
 	
 					package1.risk response = CFblockingStub.riskCalculator(request);
 	
-					System.out.println("Response: " + response);
+					//System.out.println("Response: " + response);
 					
 					//populate the JTextArea in the panel
 					textResponse1.append("reply: \n"+ response.getRisk() + "\n");
@@ -189,7 +201,7 @@ public class NewGUIApplication {
 	
 					package1.hadCovid response = CFblockingStub.covidHistory(request);
 	
-					System.out.println("Response: " + response);
+					//System.out.println("Response: " + response);
 					
 					textResponse1.append("reply: \n"+ response.getHadC() + "\n");
 				}			
@@ -259,8 +271,17 @@ public class NewGUIApplication {
 			//This will happen when the button is clicked
 			public void actionPerformed(ActionEvent e) {
 				
+				ServiceInfo serviceInfo;
+				String service_type = "_grpc._tcp.local.";
+				//Now retrieve the service info - all we are supplying is the service type
+				serviceInfo = simpleJMDNS.SimpleServiceDiscovery.run(service_type);
+				//Use the serviceInfo to retrieve the port
+				//int port = serviceInfo.getPort();
+				String host = "localhost";
+				int port = 50052;
+				
 				ManagedChannel channel = ManagedChannelBuilder
-						.forAddress("localhost", 50052)
+						.forAddress(host, port)
 						.usePlaintext()
 						.build();
 				RFblockingStub = Risk_FreeGrpc.newBlockingStub(channel);
@@ -279,7 +300,7 @@ public class NewGUIApplication {
 						@Override
 						public void onNext(thanks value) {
 							// TODO Auto-generated method stub
-							System.out.println("Final response from server " + value.getThank());
+							//System.out.println("Final response from server " + value.getThank());
 							textResponse2.append(value.getThank() + "\n");
 						}
 
@@ -338,7 +359,7 @@ public class NewGUIApplication {
 
 						@Override
 						public void onCompleted() {
-							textResponse2.append( "Bi directional Streaming Completed");
+							textResponse2.append( "Bi directional Streaming Completed \n");
 						}};
 						
 						StreamObserver<positions> requestObserver = Stub.insideSafeZones(responseObserver);
@@ -416,15 +437,24 @@ public class NewGUIApplication {
 			//This will happen when the button is clicked
 			public void actionPerformed(ActionEvent e) {
 				
+				ServiceInfo serviceInfo;
+				String service_type = "_grpc._tcp.local.";
+				//Now retrieve the service info - all we are supplying is the service type
+				serviceInfo = simpleJMDNS.SimpleServiceDiscovery.run(service_type);
+				//Use the serviceInfo to retrieve the port
+				//int port = serviceInfo.getPort();
+				String host = "localhost";
+				int port = 50053;
+				
 				ManagedChannel channel = ManagedChannelBuilder
-						.forAddress("localhost", 50053)
+						.forAddress(host, port)
 						.usePlaintext()
 						.build();
 				
 				VCblockingStub = VaccinationGrpc.newBlockingStub(channel);
 				
 				int index = comboOperation3.getSelectedIndex();
-				System.out.print(index);
+				//System.out.print(index);
 				if(index==0) {
 					
 					int name1 = Integer.parseInt(textName8.getText());
