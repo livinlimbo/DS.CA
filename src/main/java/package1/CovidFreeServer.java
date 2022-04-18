@@ -25,16 +25,16 @@ public class CovidFreeServer {
 			
 			risk.Builder response = risk.newBuilder();
 			
-			if(symptom1.equals(symptom2)) {
+			if(!symptom1.equals(symptom2)) {
 				
 				response.setRisk(50);
 			} else {
 				int s1 = 0;
 				int s2 = 0;
-				if(symptom1.equals("true1")) {
+				if(symptom1.equals("true")) {
 					s1 = 1;
 				}
-				if(symptom2.equals("true2")) {
+				if(symptom2.equals("true")) {
 					s2 = 1;
 				}
 				int sT = s1 + s2;

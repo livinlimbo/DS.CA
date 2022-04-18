@@ -85,7 +85,6 @@ public class RiskFreeServer {
 				@Override
 				public void onError(Throwable t) {
 				
-					
 				}
 
 				@Override
